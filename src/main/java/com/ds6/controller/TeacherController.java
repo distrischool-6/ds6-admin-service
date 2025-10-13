@@ -17,35 +17,35 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class TeacherController {
     
-    private final TeacherService teacherInterface;
+    private final TeacherService teacherService;
 
     @PostMapping
     public ResponseEntity<TeacherDTO> createTeacher(@Valid @RequestBody SaveTeacherDTO saveTeacherDTO) {
-        TeacherDTO createdTeacher = teacherInterface.createTeacher(saveTeacherDTO);
+        TeacherDTO createdTeacher = teacherService.createTeacher(saveTeacherDTO);
         return new ResponseEntity<>(createdTeacher, HttpStatus.CREATED);
     }
 
     @GetMapping
     public ResponseEntity<List<TeacherDTO>> getAllTeachers() {
-        List<TeacherDTO> teachers = teacherInterface.getAllTeachers();
+        List<TeacherDTO> teachers = teacherService.getAllTeachers();
         return ResponseEntity.ok(teachers);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<TeacherDTO> getTeacherById(@PathVariable UUID id) {
-        TeacherDTO teacher = teacherInterface.getTeacherById(id);
+        TeacherDTO teacher = teacherService.getTeacherById(id);
         return ResponseEntity.ok(teacher);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<TeacherDTO> updateTeacher(@PathVariable UUID id, @Valid @RequestBody SaveTeacherDTO saveTeacherDTO) {
-        TeacherDTO updatedTeacher = teacherInterface.updateTeacher(id, saveTeacherDTO);
+        TeacherDTO updatedTeacher = teacherService.updateTeacher(id, saveTeacherDTO);
         return ResponseEntity.ok(updatedTeacher);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteTeacher(@PathVariable UUID id) {
-        teacherInterface.deleteTeacher(id);
+        teacherService.deleteTeacher(id);
         return ResponseEntity.noContent().build();
     }
 }
