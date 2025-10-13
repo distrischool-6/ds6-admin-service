@@ -2,7 +2,7 @@ package com.ds6.controller;
 
 import com.ds6.dto.SaveTeacherDTO;
 import com.ds6.dto.TeacherDTO;
-import com.ds6.service.TeacherInterface;
+import com.ds6.service.TeacherService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -17,7 +17,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class TeacherController {
     
-    private final TeacherInterface teacherInterface;
+    private final TeacherService teacherInterface;
 
     @PostMapping
     public ResponseEntity<TeacherDTO> createTeacher(@Valid @RequestBody SaveTeacherDTO saveTeacherDTO) {

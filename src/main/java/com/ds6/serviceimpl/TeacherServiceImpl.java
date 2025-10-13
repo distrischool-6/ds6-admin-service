@@ -7,7 +7,7 @@ import com.ds6.dto.TeacherDTO;
 import com.ds6.exception.ResourceNotFoundException;
 import com.ds6.model.Teacher;
 import com.ds6.repository.TeacherRepository;
-import com.ds6.service.TeacherInterface;
+import com.ds6.service.TeacherService;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,7 +18,7 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-public class TeacherServiceImpl implements TeacherInterface{
+public class TeacherServiceImpl implements TeacherService{
     
     private final TeacherRepository teacherRepository;
 

@@ -1,12 +1,12 @@
 package com.ds6.service;
 
-import com.ds6.dto.SaveTeacherDTO;
-import com.ds6.dto.TeacherDTO;
-
 import java.util.List;
 import java.util.UUID;
 
-public interface TeacherInterface {
+import com.ds6.dto.SaveTeacherDTO;
+import com.ds6.dto.TeacherDTO;
+
+public interface TeacherService {
     public TeacherDTO createTeacher(SaveTeacherDTO saveTeacherDTO);
     public TeacherDTO getTeacherById(UUID id);
     public List<TeacherDTO> getAllTeachers();
