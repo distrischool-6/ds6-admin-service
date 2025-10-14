@@ -5,6 +5,6 @@ import java.util.UUID;
 public record TeacherDTO(
     UUID id,
     String name,
-    String qualification,
+    String discipline,
     String contact
 ) {}
