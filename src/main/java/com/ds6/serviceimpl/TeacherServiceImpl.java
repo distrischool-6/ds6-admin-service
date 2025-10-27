@@ -10,17 +10,21 @@ import com.ds6.repository.TeacherRepository;
 import com.ds6.service.TeacherService;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.UUID;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class TeacherServiceImpl implements TeacherService{
     
     private final TeacherRepository teacherRepository;
+    private final KafkaTemplate<String, String> kafkaTemplate;
 
     @Override
     @Transactional
@@ -32,6 +36,18 @@ public class TeacherServiceImpl implements TeacherService{
         teacher.setPhone(dto.phone());
 
         Teacher savedTeacher = teacherRepository.save(teacher);
+
+        try {
+            String topic = "teacher.assigned";
+            // O payload será o ID do professor.
+            String payload = savedTeacher.getId().toString();
+
+            kafkaTemplate.send(topic, payload);
+            log.info("Event 'teacher.assigned' published for teacher ID: {}", payload);
+        } catch (Exception e) {
+            log.error("Failed to publish 'teacher.assigned' event for teacher ID: {}. Error: {}", savedTeacher.getId(), e.getMessage());
+        }
+
         return toDTO(savedTeacher);
     }
 
